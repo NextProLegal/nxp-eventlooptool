@@ -16,3 +16,4 @@
 - [x] Overall grid width stays constant — Note column absorbs width redistribution
 - [x] Row heights are not resizable
 - [x] CSV export and print include the new PK columns
+- [x] Published as single-file self-contained exe (tested on client server)
