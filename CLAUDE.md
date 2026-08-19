@@ -61,3 +61,32 @@ Handles self-references, 2-node cycles, n-node cycles. Excludes rho tails.
 ## About Betty
 
 Betty is NextPro's name for Claude Code. See the main EventsManager repo for full context.
+
+## Dropbox
+
+Unless the user says otherwise, "Dropbox" means the NextPro company Dropbox. Its local path is in the `$env:DROPBOXBIZ` environment variable.
+
+## Work Orders
+
+This repo uses a standard workorder workflow:
+
+- **`_workorders/`** — Active/pending work orders. Create new `.md` files here when planning work.
+- **`_workorders_completed/`** — Finished work orders. Move here when done.
+
+### Workorder lifecycle:
+1. Create a new workorder in `_workorders/` with a descriptive filename (e.g., `_workorders/add-retry-logic.md`)
+2. Include: objective, acceptance criteria, and any context needed
+3. When the work is complete, move the workorder to `_workorders_completed/` and add a completion summary
+4. Commit and push workorder changes along with the code changes they describe
+
+### Auto-commit convention:
+When creating, updating, or completing a workorder, commit it with the code changes it relates to. Use commit messages like:
+- `workorder: add-retry-logic` (new workorder)
+- `complete: add-retry-logic` (moved to completed)
+
+For casual changes outside the workorder workflow, use your judgment to commit at logical stopping points with descriptive messages.
+
+## Available Skills
+
+Read `C:\NXP\Software\Skills\skills-for-betty.md` for available skills and
+instructions on when to load them.

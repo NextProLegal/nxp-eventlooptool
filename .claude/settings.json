@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(git -C:*)",
+      "Bash(git init:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git mv:*)",
+      "Bash(git rm:*)",
+      "Bash(git config:*)",
+      "Bash(git clone:*)",
+      "Bash(git submodule add:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh repo create:*)",
+      "Bash(dotnet new:*)",
+      "Bash(dotnet sln:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet run:*)",
+      "Bash(dotnet add:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(az:*)",
+      "Bash(MSYS_NO_PATHCONV=1 az:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(curl:*)",
+      "Bash(nslookup:*)",
+      "Bash(netstat:*)",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell:*)",
+      "Bash(python -c:*)",
+      "Bash(jq:*)",
+      "Bash(echo:*)"
+    ]
+  }
+}
