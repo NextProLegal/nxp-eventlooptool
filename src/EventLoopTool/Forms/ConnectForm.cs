@@ -109,7 +109,11 @@ public class ConnectForm : Form
         if (form.ShowDialog(this) == DialogResult.OK)
         {
             profile.Name = form.Profile.Name;
-            profile.ConnectionString = form.Profile.ConnectionString;
+            profile.Server = form.Profile.Server;
+            profile.Database = form.Profile.Database;
+            profile.UseWindowsAuth = form.Profile.UseWindowsAuth;
+            profile.UserID = form.Profile.UserID;
+            profile.Password = form.Profile.Password;
             ProfileStore.Save(_profiles);
             RefreshList();
         }

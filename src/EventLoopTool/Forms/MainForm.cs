@@ -405,10 +405,16 @@ public class MainForm : Form
             ScrollBars = loop.Rows.Count > 10 ? ScrollBars.Vertical : ScrollBars.None,
         };
 
+        grid.AllowUserToResizeColumns = true;
+        grid.AllowUserToResizeRows = false;
+        grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
         grid.Columns.AddRange(
         [
             new DataGridViewTextBoxColumn { Name = "EventNo", HeaderText = "Event/Document #", Width = 120, ReadOnly = true },
+            new DataGridViewTextBoxColumn { Name = "EventPK", HeaderText = "Events (PK)", Width = 80, ReadOnly = true },
             new DataGridViewTextBoxColumn { Name = "ParentNo", HeaderText = "Parent #", Width = 120, ReadOnly = true },
+            new DataGridViewTextBoxColumn { Name = "ParentPK", HeaderText = "EventsParent (PK)", Width = 80, ReadOnly = true },
             new DataGridViewTextBoxColumn { Name = "Matter", HeaderText = "Matter", Width = 100, ReadOnly = true },
             new DataGridViewTextBoxColumn { Name = "EventDate", HeaderText = "Date", Width = 90, ReadOnly = true },
             new DataGridViewTextBoxColumn { Name = "Kind", HeaderText = "Kind", Width = 75, ReadOnly = true },
@@ -422,7 +428,9 @@ public class MainForm : Form
         {
             int ri = grid.Rows.Add(
                 row.EventNo ?? "\u2014",
+                row.EventId,
                 row.ParentNo ?? (row.ParentId != null ? row.ParentId[..Math.Min(8, row.ParentId.Length)] + "\u2026" : "\u2014"),
+                row.ParentId ?? "\u2014",
                 row.Matter,
                 row.EventDate ?? "\u2014",
                 row.Kind,
@@ -501,7 +509,7 @@ public class MainForm : Form
                 sb.AppendLine($"<div style=\"margin:0 0 4px;font-size:11px;color:#857F78;font-family:Consolas,monospace\">{Esc(loop.ChainLabel)}</div>");
                 sb.AppendLine("<table style=\"width:100%;border-collapse:collapse;font-size:11px;margin-bottom:14px\">");
                 sb.AppendLine("<thead><tr>");
-                foreach (var h in new[] { "Event/Document #", "Parent #", "Matter", "Date", "Kind", "Event Type", "Professional", "Note" })
+                foreach (var h in new[] { "Event/Document #", "Events (PK)", "Parent #", "EventsParent (PK)", "Matter", "Date", "Kind", "Event Type", "Professional", "Note" })
                     sb.AppendLine($"<th style=\"text-align:left;padding:4px 8px 6px 0;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid #ccc;white-space:nowrap\">{h}</th>");
                 sb.AppendLine("</tr></thead><tbody>");
 
@@ -510,7 +518,9 @@ public class MainForm : Form
                     sb.AppendLine("<tr style=\"border-bottom:1px solid #ddd\">");
                     var td = "padding:5px 8px 5px 0;vertical-align:top";
                     sb.AppendLine($"<td style=\"{td}\">{Esc(row.EventNo ?? "\u2014")}</td>");
+                    sb.AppendLine($"<td style=\"{td};font-family:Consolas,monospace;font-size:10px\">{Esc(row.EventId)}</td>");
                     sb.AppendLine($"<td style=\"{td}\">{Esc(row.ParentNo ?? "\u2014")}</td>");
+                    sb.AppendLine($"<td style=\"{td};font-family:Consolas,monospace;font-size:10px\">{Esc(row.ParentId ?? "\u2014")}</td>");
                     sb.AppendLine($"<td style=\"{td}\">{Esc(row.Matter)}</td>");
                     sb.AppendLine($"<td style=\"{td};white-space:nowrap\">{Esc(row.EventDate ?? "\u2014")}</td>");
                     sb.AppendLine($"<td style=\"{td}\">{Esc(row.Kind)}</td>");
@@ -544,7 +554,7 @@ public class MainForm : Form
         if (dlg.ShowDialog(this) != DialogResult.OK) return;
 
         var sb = new StringBuilder();
-        sb.AppendLine("Loop Type,Chain,Event/Document #,Parent #,Matter,Date,Kind,Event Type,Professional,Note");
+        sb.AppendLine("Loop Type,Chain,Event/Document #,Events (PK),Parent #,EventsParent (PK),Matter,Date,Kind,Event Type,Professional,Note");
         foreach (var loop in _loops)
             foreach (var row in loop.Rows)
             {
@@ -552,7 +562,9 @@ public class MainForm : Form
                     Csv(DisplayLoop.TypeLabel(loop.Type)),
                     Csv(loop.ChainLabel),
                     Csv(row.EventNo ?? ""),
+                    Csv(row.EventId),
                     Csv(row.ParentNo ?? ""),
+                    Csv(row.ParentId ?? ""),
                     Csv(row.Matter),
                     Csv(row.EventDate ?? ""),
                     Csv(row.Kind),
